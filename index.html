@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodExperience</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+
+  animation: gradientMove 10s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* 🌌 fondo glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(34,197,94,0.18), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(59,130,246,0.18), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05), transparent 60%);
+
+  animation: floatBg 8s ease-in-out infinite alternate;
+}
+
+/* 🧭 barra lateral glass */
+body::after {
+  content: "";
+  position: fixed;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 10px;
+  height: 70vh;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 0 12px rgba(34,197,94,0.3),
+    inset 0 0 10px rgba(255,255,255,0.05);
+
+  animation: pulseBar 4s ease-in-out infinite;
+}
+
+/* 🧊 FORM */
+form {
+  width: 90%;
+  max-width: 800px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+
+  padding: 35px;
+  border-radius: 18px;
+
+  text-align: center;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ✨ animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatBg {
+  0% { transform: scale(1) translateY(0px); filter: blur(0px); }
+  100% { transform: scale(1.1) translateY(-10px); filter: blur(1px); }
+}
+
+@keyframes pulseBar {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(34,197,94,0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59,130,246,0.4);
+  }
+}
+
+/* 🧠 preguntas */
+p {
+  font-weight: 700;
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* 🧾 input nombre */
+input {
+  width: 100%;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 600;
+
+  margin-top: 10px;
+
+  border-radius: 14px;
+  border: none;
+  outline: none;
+
+  font-family: 'Poppins', sans-serif;
+
+  text-align: center;
+
+  background: rgba(255,255,255,0.12);
+  color: white;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* 🎯 respuestas */
+label {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  margin: 10px 0;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+label:hover {
+  background: rgba(255,255,255,0.18);
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* radios */
+input[type="radio"],
+input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #22c55e;
+}
+
+/* seleccionado */
+label.active {
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(34,197,94,0.4);
+}
+
+/* ✔ chulo */
+label.active::after {
+  content: "✔";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* 🔥 DROPDOWN PRO GLASS */
+.dropdown {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dropdown-selected {
+  padding: 16px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+
+  cursor: pointer;
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+.dropdown-selected:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* opciones */
+.dropdown-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+
+  display: none;
+  flex-direction: column;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  z-index: 10;
+}
+
+/* opción */
+.option {
+  padding: 14px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+
+  transition: 0.2s;
+}
+
+.option:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* mostrar dropdown */
+.dropdown.active .dropdown-options {
+  display: flex;
+}
+
+/* botón */
+button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 14px;
+
+  border-radius: 12px;
+  border: none;
+
+  background: #3b82f6;
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #2563eb;
+  transform: scale(1.02);
+}
+
+/* placeholder */
+input::placeholder {
+  color: #9ca3af;
+}
+
+.glass-select {
+  width: 100%;
+  padding: 14px;
+
+  margin-top: 10px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+
+  color: white;
+  font-size: 16px;
+
+  text-align: center;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.glass-select:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.glass-select option {
+  background: #0f172a;
+  color: white;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+
+</style>
+</head>
+
+<body>
+
+  
+<form id="formulario">
+
+  
+  <div class="logo-container">
+  <img src="logo codex.png" alt="CodExperience Logo" class="logo">
+</div>
+
+  <h1>CodExperience</h1>
+
+  <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+
+
+  <!-- 1 -->
+  <p>1. ¿Qué tan interesado estás en aprender tecnología de forma práctica (no solo teoría)?</p>
+ 
+  <div class="dropdown">
+  <div class="dropdown-selected">Selecciona una opción</div>
+
+  <div class="dropdown-options">
+    <div class="option">Muy interesado</div>
+    <div class="option">Interesado</div>
+    <div class="option">Neutral</div>
+    <div class="option">Poco interesado</div>
+    <div class="option">Nada interesado</div>
+  </div>
+</div>
+
+<input type="hidden" id="interes" name="interes">
+  
+
+  <!-- 2 -->
+  <p>2. ¿Qué área de la tecnología te gustaría aprender más? (puedes marcar varias)</p>
+
+  <label><input type="checkbox" name="programacion" value="Programación"> Programación</label><br>
+  <label><input type="checkbox" name="diseno" value="Diseño web"> Diseño web</label><br>
+  <label><input type="checkbox" name="ia" value="Inteligencia artificial"> Inteligencia artificial</label><br>
+  <label><input type="checkbox" name="robotica" value="Robótica"> Robótica</label><br>
+  <label><input type="checkbox" name="videojuegos" value="Desarrollo de Videojuegos"> Desarrollo de Videojuegos</label><br>
+
+  Otro:
+  <input type="text" name="otro_area" placeholder="Escribe otra opción">
+
+  <br><br>
+
+  <!-- 3 -->
+  <p>3. ¿Cómo prefieres aprender nuevos temas de tecnología?</p>
+  <label><input type="radio" name="aprendizaje" value="practica" required> Prefiero aprender principalmente con práctica (haciendo proyectos)</label><br>
+  <label><input type="radio" name="aprendizaje" value="mas_practica"> Me gusta más la práctica que la teoría</label><br>
+  <label><input type="radio" name="aprendizaje" value="equilibrado"> Me gusta equilibrado, pero con más práctica que teoría</label><br>
+  <label><input type="radio" name="aprendizaje" value="teoria"> Teoría y práctica por igual</label><br>
+
+  <!-- 4 -->
+  <p>4. ¿Qué tan importante es para ti que los cursos tengan un fuerte enfoque práctico, sin dejar de lado la teoría?</p>
+  <label><input type="radio" name="practico" value="Muy importante" required> Muy importante</label><br>
+  <label><input type="radio" name="practico" value="Importante"> Importante</label><br>
+  <label><input type="radio" name="practico" value="Moderadamente importante"> Moderadamente importante</label><br>
+  <label><input type="radio" name="practico" value="Poco importante"> Poco importante</label><br>
+
+  <!-- 5 -->
+  <p>5. ¿Qué tipo de proyectos te gustaría crear?</p>
+  <label><input type="radio" name="proyectos" value="Paginas Web" required> Paginas Web</label><br>
+  <label><input type="radio" name="proyectos" value="Apps"> Apps</label><br>
+  <label><input type="radio" name="proyectos" value="Juegos"> Juegos</label><br>
+  <label><input type="radio" name="proyectos" value="IA"> Proyectos con inteligencia artificial</label><br>
+  <label><input type="radio" name="proyectos" value="Basicos"> Proyectos basicos de aprendizaje</label><br>
+
+  <!-- 6 -->
+  <p>6. ¿Qué formato prefieres para aprender?</p>
+  <label><input type="radio" name="formato" value="Videos" required> Videos</label><br>
+  <label><input type="radio" name="formato" value="Clases en vivo"> Clases en vivo</label><br>
+  <label><input type="radio" name="formato" value="Presencial"> Presencial</label><br>
+  <label><input type="radio" name="formato" value="Mixto"> Mixto</label><br>
+
+  <!-- 7 -->
+  <p>7. ¿Cuánto tiempo podrías dedicar a aprender por semana?</p>
+  <label><input type="radio" name="tiempo" value="2h" required> 2h</label><br>
+  <label><input type="radio" name="tiempo" value="2-5h"> 2h-5h</label><br>
+  <label><input type="radio" name="tiempo" value="5-10h"> 5h-10h</label><br>
+  <label><input type="radio" name="tiempo" value="10h"> 10h</label><br>
+
+  <!-- 8 -->
+  <p>8. ¿Qué te motiva más a aprender tecnología?</p>
+  <label><input type="radio" name="motivacion" value="Trabajo" required> Trabajo</label><br>
+  <label><input type="radio" name="motivacion" value="Proyectos"> Proyectos</label><br>
+  <label><input type="radio" name="motivacion" value="Emprender"> Emprender</label><br>
+  <label><input type="radio" name="motivacion" value="Curiosidad"> Curiosidad</label><br>
+
+  <!-- 9 -->
+  <p>9. ¿Qué tipo de apoyo te gustaría recibir?</p>
+  <label><input type="radio" name="apoyo" value="Tutorias" required> Tutorías personalizadas</label><br>
+  <label><input type="radio" name="apoyo" value="Comunidad"> Comunidad de estudiantes</label><br>
+  <label><input type="radio" name="apoyo" value="Retos"> Retos practicos</label><br>
+  <label><input type="radio" name="apoyo" value="Contenido"> Solo contenido</label><br>
+
+  <!-- 10 -->
+  <p>10. ¿Qué tan probable es que pagarías por cursos prácticos si realmente aprendes haciendo proyectos reales?</p>
+  <label><input type="radio" name="pago" value="Muy probable" required> Muy probable</label><br>
+  <label><input type="radio" name="pago" value="Probable"> Probable</label><br>
+  <label><input type="radio" name="pago" value="Poco probable"> Poco probable</label><br>
+  <label><input type="radio" name="pago" value="Nada probable"> Nada probable</label><br>
+
+  <!-- 11 -->
+  <p>11. ¿Desde qué nivel te gustaría empezar los cursos?</p>
+  <label><input type="radio" name="nivel" value="Principiante" required> Principiante</label><br>
+  <label><input type="radio" name="nivel" value="Intermedio"> Intermedio</label><br>
+  <label><input type="radio" name="nivel" value="Avanzado"> Avanzado</label><br>
+
+  <!-- 12 -->
+  <p>12. ¿Te gustaría recibir certificados al terminar los cursos?</p>
+  <label><input type="radio" name="certificado" value="Importante" required> Sí, es muy importante</label><br>
+  <label><input type="radio" name="certificado" value="Opcional"> Sí, pero no es necesario</label><br>
+  <label><input type="radio" name="certificado" value="No"> No me interesa</label><br>
+
+  <!-- 13 -->
+  <p>13. ¿Qué te haría sentir que un curso es de buena calidad?</p>
+  <label><input type="radio" name="calidad" value="Explicacion clara" required> Explicación clara</label><br>
+  <label><input type="radio" name="calidad" value="Proyectos"> Muchos Proyectos practicos</label><br>
+  <label><input type="radio" name="calidad" value="Acompañamiento"> Buen Acompañamiento</label><br>
+  <label><input type="radio" name="calidad" value="Actualizado"> Material Actualizado</label><br>
+
+  <!-- 14 -->
+  <p>14. ¿Qué dificultad prefieres en los cursos?</p>
+  <label><input type="radio" name="dificultad" value="Facil" required> Fácil</label><br>
+  <label><input type="radio" name="dificultad" value="Intermedio"> Intermedio</label><br>
+  <label><input type="radio" name="dificultad" value="Retador"> Retador</label><br>
+  <label><input type="radio" name="dificultad" value="Depende"> Depende del tema</label><br>
+
+  <!-- 15 -->
+  <p>15. ¿Por qué medio te gustaría conocer o inscribirte a CodExperience?</p>
+  <label><input type="radio" name="medio" value="Redes sociales" required> Redes sociales</label><br>
+  <label><input type="radio" name="medio" value="Web"> Pagina Web</label><br>
+  <label><input type="radio" name="medio" value="Recomendacion"> Recomendación de alguien</label><br>
+  <label><input type="radio" name="medio" value="Eventos"> Eventos o ferias</label><br>
+
+  <!-- 16 -->
+  <p>16. ¿Qué tan importante es para ti que los cursos tengan un equilibrio entre teoría y práctica para aprender mejor?</p>
+  <label><input type="radio" name="equilibrio" value="Muy importante" required> Muy importante</label><br>
+  <label><input type="radio" name="equilibrio" value="Importante"> Importante</label><br>
+  <label><input type="radio" name="equilibrio" value="Moderado"> Moderado</label><br>
+  <label><input type="radio" name="equilibrio" value="Poco"> Poco importante</label><br>
+
+  <!-- 17 -->
+  <p>17. ¿Te gustaría que los cursos incluyan ejercicios guiados paso a paso para facilitar el aprendizaje?</p>
+  <label><input type="radio" name="ejercicios" value="Si totalmente" required> Sí totalmente</label><br>
+  <label><input type="radio" name="ejercicios" value="Algunos"> Algunos</label><br>
+  <label><input type="radio" name="ejercicios" value="No necesario"> No es necesario</label><br>
+  <label><input type="radio" name="ejercicios" value="No"> No me interesa</label><br>
+
+  <br>
+  <button type="submit">Enviar</button>
+
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBvJFHc4YP0vPu6TB3TQzvLn56a5ZO-usg",
+  authDomain: "codexperience-formulario.firebaseapp.com",
+  projectId: "codexperience-formulario",
+  storageBucket: "codexperience-formulario.firebasestorage.app",
+  messagingSenderId: "51075258060",
+  appId: "1:51075258060:web:e6d228b2c61c30c9085469",
+  measurementId: "G-6NWH621736"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.getElementById("formulario").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+
+  // 🔥 helper seguro
+  const get = (name) => form.querySelector(`[name="${name}"]`)?.value || "";
+
+  const data = {
+    nombre: get("nombre"),
+
+    respuestas: [
+      {
+        pregunta: "1. ¿Qué tan interesado estás en aprender tecnología de forma práctica (no solo teoría)?",
+        respuesta: get("interes")
+      },
+      {
+        pregunta: "2. ¿Qué área de la tecnología te gustaría aprender más?",
+        respuesta: [
+          form.programacion?.checked ? "Programación" : null,
+          form.diseno?.checked ? "Diseño web" : null,
+          form.ia?.checked ? "Inteligencia artificial" : null,
+          form.robotica?.checked ? "Robótica" : null,
+          form.videojuegos?.checked ? "Desarrollo de Videojuegos" : null,
+          get("otro_area") ? "Otro: " + get("otro_area") : null
+        ].filter(Boolean).join(", ")
+      },
+      {
+        pregunta: "3. ¿Cómo prefieres aprender nuevos temas de tecnología?",
+        respuesta: get("aprendizaje")
+      },
+      {
+        pregunta: "4. ¿Qué tan importante es para ti el enfoque práctico?",
+        respuesta: get("practico")
+      },
+      {
+        pregunta: "5. ¿Qué tipo de proyectos te gustaría crear?",
+        respuesta: get("proyectos")
+      },
+      {
+        pregunta: "6. ¿Qué formato prefieres para aprender?",
+        respuesta: get("formato")
+      },
+      {
+        pregunta: "7. ¿Cuánto tiempo podrías dedicar a aprender por semana?",
+        respuesta: get("tiempo")
+      },
+      {
+        pregunta: "8. ¿Qué te motiva más a aprender tecnología?",
+        respuesta: get("motivacion")
+      },
+      {
+        pregunta: "9. ¿Qué tipo de apoyo te gustaría recibir?",
+        respuesta: get("apoyo")
+      },
+      {
+        pregunta: "10. ¿Qué tan probable es pagar por cursos prácticos?",
+        respuesta: get("pago")
+      },
+      {
+        pregunta: "11. ¿Desde qué nivel te gustaría empezar los cursos?",
+        respuesta: get("nivel")
+      },
+      {
+        pregunta: "12. ¿Te gustaría recibir certificados?",
+        respuesta: get("certificado")
+      },
+      {
+        pregunta: "13. ¿Qué hace que un curso sea de calidad?",
+        respuesta: get("calidad")
+      },
+      {
+        pregunta: "14. ¿Qué dificultad prefieres?",
+        respuesta: get("dificultad")
+      },
+      {
+        pregunta: "15. ¿Por qué medio te gustaría conocer CodExperience?",
+        respuesta: get("medio")
+      },
+      {
+        pregunta: "16. ¿Qué tan importante es el equilibrio teoría/práctica?",
+        respuesta: get("equilibrio")
+      },
+      {
+        pregunta: "17. ¿Te gustaría ejercicios guiados paso a paso?",
+        respuesta: get("ejercicios")
+      }
+    ]
+  };
+
+  try {
+    const id = (get("nombre") || "user") + "_" + Date.now();
+
+    await setDoc(doc(db, "usuarios", id), data);
+
+    alert("Datos guardados correctamente 🔥");
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al guardar en Firebase");
+  }
+});
+</script>
+
+<script>
+document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+
+  input.addEventListener('change', () => {
+
+    const label = input.closest("label");
+    const text = label.querySelector("span");
+
+    // 🔥 SI ES RADIO: limpiar su grupo completo
+    if (input.type === "radio") {
+      document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+        const l = r.closest("label");
+        const t = l.querySelector("span");
+
+        l.style.background = "rgba(255,255,255,0.08)";
+        l.classList.remove("active");
+        if (t) t.style.opacity = "1";
+      });
+    }
+
+    // 🔥 SI ESTÁ SELECCIONADO
+    if (input.checked) {
+      label.style.background = "#22c55e";
+      label.classList.add("active");
+
+      // ocultar texto (si quieres ese efecto)
+      if (text) text.style.opacity = "0";
+    } else {
+      label.style.background = "rgba(255,255,255,0.08)";
+      label.classList.remove("active");
+
+      if (text) text.style.opacity = "1";
+    }
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const dropdown = document.querySelector(".dropdown");
+  const selected = document.querySelector(".dropdown-selected");
+  const options = document.querySelectorAll(".option");
+  const input = document.getElementById("interes");
+
+  if (!dropdown || !selected || !input) {
+    console.log("Dropdown no encontrado");
+    return;
+  }
+
+  // abrir/cerrar
+  selected.addEventListener("click", () => {
+    dropdown.classList.toggle("active");
+  });
+
+  // seleccionar opción
+  options.forEach(opt => {
+    opt.addEventListener("click", () => {
+
+      const value = opt.textContent.trim();
+
+      selected.textContent = value;
+      input.value = value;
+
+      dropdown.classList.remove("active");
+
+      console.log("Interes guardado:", value); // 👈 prueba visual
+    });
+  });
+
+});
+</script>
+
+
+
+</body>
